@@ -1,0 +1,49 @@
+<figcaption>健康バランスを考えた食事</figcaption>
+
+figcaption というタブの存在
+
+<aside id="sidebar">
+    <section id="side_banner">
+    </section>
+</aside>
+
+サイドバーの作成方法
+
+cssについて
+
+.abc {
+  /* プロパティと値 */
+}
+p#important {
+    color: red;
+}
+div article p {
+    color: red;
+}
+
+（擬似クラス、特定の状態を指定して修飾することができる。）
+a:hover {
+    color: #ff0000;
+}
+
+詳細なセレクタほど優先される。
+
+<link rel="stylesheet" href="style.css">
+で読み込むのが一般的
+<p style="color: red;">ここが赤文字</p>
+タグにねじ込むのも可能
+
+
+display: block;	ブロックレベル要素になる
+display: inline;	インラインレベル要素になる
+display: inline-block;	要素全体はインラインレベル要素、要素内はブロックレベル要素になる
+
+div中のdivは親divのコンテンツエリア左上からスタート
+marginは相殺される。
+
+
+2カラムレイアウト
+二つのwidthを％か何かで指定して
+・display: flex;で横並び
+・justify-content:で調整
+これがフレックスボックスモデル
