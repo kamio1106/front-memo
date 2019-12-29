@@ -1,0 +1,130 @@
+console.log('こんにちは！');
+alert(111 + 222);
+
+let 変数名 = 数値、文字列など;
+const 変数名 = 数値、文字列など;
+
+constは再代入ができない。
+その他命名ルールいくつかあり、最初に数字は不可、全角不可、予約語は不可
+
+' を文字として入力する場合は直前にバックスラッシュ
+111+"222"など片方が文字列の場合は両方とも文字列として認識される。
+
+変数の埋め込み方法
+・const hello = `こんにちは、${name}さん`;
+・普通にやる
+
+// 配列を作成
+const numbers = [1, 2, 3, 4, 5, 7, 10];
+
+// 最初の要素を表示
+console.log(numbers[0]);
+
+for (let i = 0; i < numbers.length; i++) {
+  console.log(numbers[i]);
+}
+
+
+
+const result = 10 > 3;（resultにはtrue,falseが入る）
+
+if (result) { // resultがtrueの場合に実行される
+  console.log('yes');
+} else { // resultがfalseの場合に実行される
+  console.log('no');
+}
+
+
+///////これらの値もfalseになる。
+false
+undefined
+null
+0
+NaN
+''
+///////
+
+const result = undefined;
+if (result) {
+  console.log('truthy');
+} else {
+  console.log('falsy');
+}
+これはfalsyになる。
+
+プロパティの作成方法
+const person = {
+  name: '桃太郎',
+  age: 7,
+};
+console.log(person.name); // コンソールに「桃太郎」と表示される　　　ドット記法と呼ぶ
+console.log(person['name']); // コンソールに「桃太郎」と表示される　　ブラケット記法と呼ぶ
+ブラケット記法の場合は変数が使える。a=nameとしてaを呼ぶことでも表記が可能になる。
+
+const { name } = person; が分割代入です。const name = person.name; と同じ意味になります。
+const { name, age } = person;のように一括代入が可能になる。
+
+オブジェクトそのものの変更はできないが、オブジェクトの値を変更することはできる。
+
+const person = {
+  name: '桃太郎',
+  age: 7,
+};
+person.enemy = '鬼'; // personオブジェクトに「enemy」というプロパティを追加する
+console.log(person); // personオブジェクトに、enemyプロパティを追加したことが確認できる
+
+delete person.age; // personオブジェクトのageプロパティを削除する
+
+
+const person = {
+  name: '桃太郎',
+  greet: function() {
+    console.log('こんにちは！');
+  },
+  introduce: function() {
+    console.log(`${this.name}と呼んでください！`);
+  },
+};
+person.greet(); // greetメソッドを呼び出す
+このようにメソッドをプロパティに含めることもできる。
+プロパティの中でメソッドを呼び出すときは、thisをつける
+
+間違った計算を行った場合などはNaNが帰ってくる、これはnot a numberを表す。
+
+
+
+setTimeout(() => {
+  console.log('呼んだ？');
+}, 1000);
+
+//////setTimeout()関数を使うことで指定の時間後にその関数を発動させることが可能になる。
+setTimeoutの処理は後回しに処理される。
+実行を後回しにされる処理を非同期処理と呼ぶ
+
+配列の分解はスライス、値は正負ともに可能
+
+const members = ['桃太郎', 'イヌ', 'サル', 'キジ'];
+
+function addRespect(member) {
+    console.log(member + 'さん');
+}
+
+members.forEach(addRespect);
+forEachメソッドで全てに関数を適用することができる。
+メソッドにはアロー関数を直接渡すことができる。
+
+アロー関数は（引数）=>プロパティという流れ
+
+
+mapメソッドは、forEachメソッドとほぼ同じ処理を行います。違いはmapメソッドが、
+引数に渡した関数で処理した値を、新しい配列 として返すことです。
+foreachもmapも配列の一つ一つを取り出して機能する関数である。
+
+const numbers = [9, 3, 7, 1, 15, 4];
+
+function isLargerThanFive(number) {
+  return number > 5;
+}
+
+const resultNumbers = numbers.filter(isLargerThanFive);
+console.log(resultNumbers);
