@@ -1,0 +1,249 @@
+console.log('こんにちは！');
+alert(111 + 222);
+
+let 変数名 = 数値、文字列など;
+const 変数名 = 数値、文字列など;
+
+constは再代入ができない。
+その他命名ルールいくつかあり、最初に数字は不可、全角不可、予約語は不可
+
+' を文字として入力する場合は直前にバックスラッシュ
+111+"222"など片方が文字列の場合は両方とも文字列として認識される。
+
+変数の埋め込み方法
+・const hello = `こんにちは、${name}さん`;
+・普通にやる
+
+// 配列を作成
+const numbers = [1, 2, 3, 4, 5, 7, 10];
+
+// 最初の要素を表示
+console.log(numbers[0]);
+
+for (let i = 0; i < numbers.length; i++) {
+  console.log(numbers[i]);
+}
+
+
+
+const result = 10 > 3;（resultにはtrue,falseが入る）
+
+if (result) { // resultがtrueの場合に実行される
+  console.log('yes');
+} else { // resultがfalseの場合に実行される
+  console.log('no');
+}
+
+
+///////これらの値もfalseになる。
+false
+undefined
+null
+0
+NaN
+''
+///////
+
+const result = undefined;
+if (result) {
+  console.log('truthy');
+} else {
+  console.log('falsy');
+}
+これはfalsyになる。
+
+プロパティの作成方法
+const person = {
+  name: '桃太郎',
+  age: 7,
+};
+console.log(person.name); // コンソールに「桃太郎」と表示される　　　ドット記法と呼ぶ
+console.log(person['name']); // コンソールに「桃太郎」と表示される　　ブラケット記法と呼ぶ
+ブラケット記法の場合は変数が使える。a=nameとしてaを呼ぶことでも表記が可能になる。
+
+const { name } = person; が分割代入です。const name = person.name; と同じ意味になります。
+const { name, age } = person;のように一括代入が可能になる。
+
+オブジェクトそのものの変更はできないが、オブジェクトの値を変更することはできる。
+
+const person = {
+  name: '桃太郎',
+  age: 7,
+};
+person.enemy = '鬼'; // personオブジェクトに「enemy」というプロパティを追加する
+console.log(person); // personオブジェクトに、enemyプロパティを追加したことが確認できる
+
+delete person.age; // personオブジェクトのageプロパティを削除する
+
+
+const person = {
+  name: '桃太郎',
+  greet: function() {
+    console.log('こんにちは！');
+  },
+  introduce: function() {
+    console.log(`${this.name}と呼んでください！`);
+  },
+};
+person.greet(); // greetメソッドを呼び出す
+このようにメソッドをプロパティに含めることもできる。
+プロパティの中でメソッドを呼び出すときは、thisをつける
+
+間違った計算を行った場合などはNaNが帰ってくる、これはnot a numberを表す。
+
+
+
+setTimeout(() => {
+  console.log('呼んだ？');
+}, 1000);
+
+//////setTimeout()関数を使うことで指定の時間後にその関数を発動させることが可能になる。
+setTimeoutの処理は後回しに処理される。
+実行を後回しにされる処理を非同期処理と呼ぶ
+
+配列の分解はスライス、値は正負ともに可能
+
+const members = ['桃太郎', 'イヌ', 'サル', 'キジ'];
+
+function addRespect(member) {
+    console.log(member + 'さん');
+}
+
+members.forEach(addRespect);
+forEachメソッドで全てに関数を適用することができる。
+メソッドにはアロー関数を直接渡すことができる。
+
+アロー関数は（引数）=>プロパティという流れ
+
+
+mapメソッドは、forEachメソッドとほぼ同じ処理を行います。違いはmapメソッドが、
+引数に渡した関数で処理した値を、新しい配列 として返すことです。
+foreachもmapも配列の一つ一つを取り出して機能する関数である。
+
+const numbers = [9, 3, 7, 1, 15, 4];
+
+function isLargerThanFive(number) {
+  return number > 5;
+}
+
+const resultNumbers = numbers.filter(isLargerThanFive);
+console.log(resultNumbers);
+
+filterメソッドは、渡した値が条件を満たせばtrue、そうでなければfalseを返す。
+この場合、isLargerThanFive(~)の~に数値が一つずつ代入されていき
+trueのものだけ返ってくる。
+
+filter内の関数のプロパティは自動的に一つずつ代入される。
+
+配列をつなげるときは
+dogs.concat(cats); // pets変数に、新しい配列が代入される
+dogsとcats配列の結合
+しかし、これだと3*2の配列になる
+
+const pets = [];
+const dogs = ['柴犬', 'チワワ', 'トイプードル'];
+const cats = ['ペルシャ', 'ロシアンブルー', 'シャム'];
+pets.push(...dogs); // dogsを展開して、petsに加える
+pets.push(...cats); // catsを展開して、petsに加える
+
+console.log(pets);
+これにより完全に結合
+const pets = [...dogs, ...cats]; 
+スプレット構文だとこうなる。
+
+Object.keysメソッド（Objectオブジェクトのkeysメソッド）は、指定したオブジェクトが持つプロパティ名だけを、配列として返します。
+
+prototypeオブジェクト→全メソッドの母
+
+document.getElementById('box').textContent = 'こんにちは！';
+これはboxというidを持つ要素ないにテキストを埋め込む
+
+new Date().toLocaleString() は現在時刻を取得する命令です。
+イベントの発生はaddEventListener というメソッドを使います。
+
+第１引数の「イベントの種類」は、click や load、submit などがあります。それぞれ「要素がクリックされた」、「ページが読み込まれた」、「入力フォームが送信された」ときなどに発生するイベントです。
+
+第２引数の「イベントリスナー」は、イベントが発生したときに呼び出される関数のことです。第１引数のイベントが発生したときに、第２引数のイベントリスナーが呼び出されます。
+
+const button = document.getElementById('my-button');
+
+// ボタンをクリックすると、イベントリスナーが実行される
+button.addEventListener('click', () => {
+  alert('押された！');
+});
+
+発生したイベントの種類はイベントオブジェクトの type プロパティに入っています。
+
+
+const input = document.getElementById('input-word');
+const form = document.getElementById('my-form');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log('value: ', input.value);
+});
+
+フォーム送信の値の取得
+e.preventDefaultはフォームの送信を中止してる。
+送信されるとフォームがリロードされてコンソールが消滅する。
+
+
+e.preventDefault();
+e.target
+e.event
+
+バブリングフェーズ
+
+innerHTMLとtextcontentの違いは
+HTMLとして代入されるか、テキストとして代入されるかの違いがある。
+
+プロパティ.valueで入力された値を取得できる。
+
+/////main.jsの読み込みはbodyじゃないとダメ
+
+文字列を数値に変換するのは
+Number.parseFloat(文字列) とすると文字列が数値に変換され
+取得した値で足算ができるようになる。
+jsはHTMLをdomを通じて操作している。
+
+html
+├ head
+│ ├ title
+│ ├ meta
+│ └ ...
+└ body
+     ├ header
+     ├ main
+     │ ├ div
+     │ │ └ ...
+     │ └ ....
+     └ footer
+     
+
+Domツリー
+jsを通してhtmlファイルを変更することをdom操作という。
+
+
+JavaScriptでundefinedとなるのは、以下のような場合です。
+
+コンソールに入力して実行したコードが、結果を返していない
+呼び出したメソッドや関数が、return で戻り値を返していない
+アクセスした変数に、値がセットされていない
+アクセスしたオブジェクトのプロパティが、存在していない
+
+
+スコープという概念
+
+JavaScriptには、主に以下の３つのスコープがあります。
+
+グローバルスコープ//普通に定義したもの
+関数スコープ// 関数ないで定義したもの
+ブロックスコープ↓
+{
+  const foo = 'local';  // ブロックスコープ
+}
+
+{}で囲ったもの、ブロックないで定義したものはブロックないでしかアクセスできない。
+
+////.eslintrcファイルを作成することで詳細なエラー表示を行ってくれる。
+////edit,コードフォーマットでインデントの調整などをやってくれる。
