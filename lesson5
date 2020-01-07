@@ -1,170 +1,78 @@
-jqueryを使うときは
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-のコードをjsを読み込む前に挟み込む。
-jqueryの基本
-$('セレクタ').操作();
-jsだと以下のような表記になる。
-const box = document.getElementById('box');
-box.textContent = 'Hello jQuery!';
+CDN（Content Delivery Network）とは、Bootstrapのような公開ライブラリを誰でも自由に使えるよう、
+Web上に設置（ホスティング）してくれているサイトです。
 
-jqueryはjsで記入されている。
-jsと違ってjqueryはブラウザ間での微妙な表現系の違いを意識せずに書くことができる。
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-jsの読み込みとjqueryのsrriptは読み込まれた時点でその以前に表記されたものに大して適用される。
-そのため全ての記入が終わった</body>の前に書くのが良い。
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-しかし画像の読み込みなどはその時点で終わってない可能性があるため、
-全てが完了してから起動したいものに関してはloadイベントを使用する。
+        <title>Hello, world!</title>
+    </head>
+    <body>
+        <h1>Hello, world!</h1>
 
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS, then Font Awesome -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
+    </body>
+</html>
 
+これがbootstrap使用時のテンプレート
+metaに注目
+content="width=device-width"で横幅をデバイスの横幅に一致させる。
+initial-scale=1でデフォルトのサイズ倍率を一倍にしている。
+shrink-to-fit=noでiOSのSafariで表示倍率を自動的に縮小する処理を無効にする( shrink-to-fit=no )
+こうすればiphoneでも文字が縮小されて醜くなるということがなくなる。
 
-イベントの種類
-・load
-・click
-・マウスなんちゃら
+レスポンシブデザインとは多様な画面サイズに対応すること、google検索で上位にでやすくなる。
+つまりはメディアクエリをしっかりと設定することが大事になる。
+メディアクエリ自体はCSSの優先順位に影響を与えず、単に より下方で定義された値が優先される というCSSのルールを利用しているに過ぎません。
+そのため、上の方により広い条件（min-width:500px ＝表示幅500px以上）を書き、下に行くに従って対象範囲が狭まる（min-width:1000px ＝表示幅1000px以上）ように書きます。
 
-セレクタに該当するもの全てに作用する。
-直下セレクタというものを使うこともできる。
-子孫要素と子要素
-・子孫要素はその要素の下にある全て
-・子要素はその要素の直下のもの
+min-widthとmax-widthが存在する。
 
+次にグリッドシステムを理解する。画面が12分割されている。
+使うルールはグリッドシステムを使う範囲にcontainerクラスをつける
+containerの中にrowクラスをつける(ブロックレベル要素、一列を規定する)
+その中にcol-[画面サイズ]-[カラム数]
+[      col-md-6        ][        col-md-6      ]
+[     col-md-5       ]    [offset-md-2 col-md-5]
 
-
-メソッド
-・onメソッドはイベント発生用のメソッド
-・textは指定されたセレクタに完全置換
-・prependは挿入する
-・htmlメソッドは既存のものとhtmlごと置き換える
-・valメソッドは入力された値を取得することができる。
-・attr() の引数に指定した属性名の 属性値を取得 できます。
-  該当のセレクタが複数あるときは一番最初の要素だけ取得できる。
-・$('セレクタ').attr('属性名', '属性値')
-  第二引数を指定した場合、指定のセレクタ全ての属性名を第二引数の属性値に変更することができる。
-・hideで要素を非表示にすることができる。
-・非表示にした要素を表示するときはshowメソッドを使用する。
-・toggleメソッドは表示非表示を変更するときに使用する。
-・fadeInメソッドは非表示の状態から、ゆっくり表示します。
-・fadeOutメソッドは表示した状態から、ゆっくり非表示にします。
-・slideUp,slideDownメソッド
-・animateメソッド
-$('セレクタ').animate('CSSプロパティのオブジェクト', アニメーションする時間)
-指定の時間をかけて指定のcssプロパティへと変化する。
-
-
-
-属性とはそのタグが持つ特製、例えばid=textの場合は
-id が属性名で、test が属性値です。
-属性に関してはほとんど指定ができる。
-<a href="pm.html"></p>というタグに関しては
-$('[href="pm.html"]').text('こんにちは！');
-
-
-属性とともに、要素名を指定することもできます。
-この場合は、'要素名[属性名="属性値"]'という形で表記する。
-
-$('p').css('color', 'red');
-このように操作コマンドにcssを適用することも可能
-cssを複数適用する場合はオブジェクトを渡す。
-$('#box').css({
-  'color': '#ffffff',
-  'background-color': '#000000',
-});
-こんな感じ
-
-
-また、下記のように選択要素を変更することもできる。この場合選択したouterからその子要素へとcssの適用対象は変更される。
-$('#outer')
-  .children()
-  .css({ 'background-color': 'skyblue' });
-
-parentメソッドはセレクタの親要素を全て選択する。
-childrenメソッド以外にもparentメソッドも存在する。
-
-
-
-
-$('#box').children()	id=”box”直下の子要素
-$('#box').find('a')	id=”box”の子を辿って見つかったすべてのa
-$('#box').closest('div')	id=”box”の親を辿って最初に見つかったdiv
-$('#box').next()	id=”box”と同じ階層にある次の要素
-$('#box').prev()	id=”box”と同じ階層にある1つ前の要素
-$('#box').parent()	id=”box”の直接の親要素
-$('#box').siblings('.item')	id=”box”と同じ階層でitemクラスを持つすべての要素
-
-
-コンソールの中でjqueryを使用することもできる。
-
-
-jqueryではイベント発生時の関数の呼びだしは次のようにコードする。
-jQueryオブジェクト.on(イベントの種類, イベントが発生したときに呼び出される関数)
-
-$('.mylink').on('click', (e) => {
-  // hrefのリンク先に飛ばないようにする
-  e.preventDefault();
-
-  alert('どろん！');
-});
-例えばクリック時に起動する関数
-イベントリスナーにはイベントオブジェクトが渡される。
-
-後から追加した要素にイベントハンドラを追加する場合はやりかたがある。
-
-e.preventDefault();で
-フォーム送信を取り消すことができる。
-イベント発生時に呼び出される関数のことをイベントハンドラと呼ぶ
-
-後から追加要素へのイベントの適用方法その１
-・親要素にイベントハンドラを登録する方法です。jQueryで親要素にイベントハンドラを登録するときも、onメソッドを使います。
-この場合 on() の第１引数にイベント名、第２引数にイベント発生元を指定するセレクタ、第３引数にイベントハンドラを渡します。
-・後から追加する要素をDOM要素として生成、イベントハンドラを登録する。
-jQueryでDOM要素を生成するには、$('作成す���要素のタグ', {要素に設定する属性名: '属性値'}) という形で指定します。
-
-イベントハンドラに渡されるイベントオブジェクトには、任意のデータを追加できます。
-そのためにはonメソッドの第２引数に、追加したいデータをオブジェクトとして渡します。
-$('.my-click').on('click', { test: 'テストデータ' }, (e) => {
-  console.log('追加したデータ：', e.data.test);
-});
-
-アニメーションの方法
-
-・アコーディオンメニュー
-・タブ
-・トップページに戻るボタン
-・カルーセル、横スライド
-複数の画像を横スライドで表示する技法である。
-・ライトボックス、画像のポップアップ
-・パララックス（視差効果）、画面に奥行きがあるように見せる技法の一つ
-
-
-
-//////質問事項、関数ないで定義したconstは他でエラーが怒る。
-
-
-
-const showTab=(selector)=>{
-  console.log(selector);
-  $('.tabs-menu div').removeClass('active');
-  $('.tabs-menu div[id="${select}"]').addClass('active');
-  $(".tabs-content > div").hide();  //他のコンテンツを排除
-  $(selector).show();　　//指定のコンテンツを表示
-}
-//タブのdivを三つともactive解除、id=selectorのdivのみactive
-
-
-
-
-$(".tabs-menu div").on("click",(e)=>{
-  const select=$(e.target).attr("id");
-  //selectからsliceでコンテンツidへ変換するしょり、selectorにいれる。
-  const lastletter=select.slice(-1);
-  const selector="#tabs-"+lastletter;
-  showTab(selector);
-});
-showTab('#tabs-a');
-
-
-この場合呼び出したshowtabのselectでエラーが怒っているがこれだめなん?
-
-topページ遷移ボタンの作り方
-scrollTop()は、ページのスクロール位置を取得するメソッドです
+紹介している諸々
+・テーブル作成
+・フォーム作成
+・左右にアクセサリーを追加する場合のやり方について
+・ボタン
+・ドロップダウンの作り方（これが少し難しい）
+  親要素 ( <div> ) に dropdown-menu、子要素 ( <a> ) に dropdown-item クラスを追加してください。
+・タブを使ったナビゲーション
+　<ul> に nav と nav-tabs クラスを、さらに <li> に nav-item クラス、<a> に nav-link クラスを追加してください。
+・ナビゲーションバー
+　<nav> 要素に navbar クラスと navbar-expand クラスを追加してください。
+  ナビゲーションバーの中に表示する内容の色の方針を決めます。背景色を明るい色にするときは navbar-light クラス、暗い色なら navbar-dark クラスを <nav> 要素に追加すると、いい感じに調整されます。今回は背景色を明るめにしたいので navbar-light クラスを指定します。
+  背景色は bg-[色の種類] クラスを追加します。色の種類はボタンと同じ primary や secondary、info などです。今回は bg-light クラスを使います。
+  よくあるサイトのように、左端に表示されるサイト名は <a> 要素で囲み、リンクを設定します。その <a> 要素には必ず navbar-brand クラスを追加してください。
+  その他の肯定はlesson5参照
+・ボタンの中に数字や文字を入れる
+  ボタンの表示内容に数値を追加し、新着通知の件数を表示するときに使います。数値を <span> で囲み、badge と badge-pill 、badge-[色の種類] 以上3つのクラスを追加してください。
+  <button class="btn btn-primary">
+    受信トレイ <span class="badge badge-pill badge-light">7</span>
+  </button>
+・alert
+  アラート表示の際はalert と alert-[色の種類] クラスを追加することで利用できます。
+・カードの使用方法
+　大枠にcard、タイトルはcard-header、コンテンツはcard-bodyクラスを付与する。
+・ユーティリティークラス
+  bootstrapではmargin,borderなどの基本情報は簡易的な命令が用意されている。
+  margin や padding に関する以下の命令が用意されています。[余白の種類][余白の場所]-[余白の大きさ] という記述の仕方で使うルールです。
+  mtー１やpbー４などで技術する。
+  flexboxモデルを使用する場合のclassも一応存在する。
+・FontAwesomeのアイコンを使用する場合を考える。
